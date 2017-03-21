@@ -1,0 +1,10 @@
+package com.liyang.webadmin.entity;
+
+public class Constant {
+	
+	/**
+	 * 菜单根ID
+	 */
+	public static String MENU_ROOT_ID = "";
+
+}

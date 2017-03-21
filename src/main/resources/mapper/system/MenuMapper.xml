@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyang.webadmin.persistence.mapper.MenuMapper">
+	
+	
+	<!-- 查询所有菜单 -->
+	<select id="findMenus" resultType="menu" >
+		SELECT
+			*
+		FROM authc_menu a
+	</select>
+	
+	<insert id="save">
+	    insert into authc_menu 
+	    (id, sort, parent_id, name, href, status, permission, icon)
+	    values
+	    (#{id}, #{sort}, #{parentId}, #{name}, #{href}, #{status}, #{permission}, #{icon})
+	</insert>
+	
+	<delete id="delete">
+	     delete from authc_menu
+	     where 
+	     id=#{0}
+	</delete>
+	
+	<delete id="clearRoleMenu">
+	     delete from authc_role_menu
+	     where 
+	     menu_id=#{0}
+	</delete>
+	
+	
+	<select id="findChildren" resultType="menu" >
+		SELECT
+			*
+		FROM authc_menu a where parent_id=#{0} order by sort
+	</select>
+	
+	<select id="findAllChildren" resultType="menu" >
+		(SELECT
+			a.*
+		FROM authc_menu a where a.parent_id=#{0} order by a.sort) UNION (SELECT
+			b.*
+		FROM authc_menu a LEFT JOIN authc_menu b on b.parent_id=a.id where a.parent_id=#{0} order by a.sort)
+	</select>
+	
+	<select id="findMaxId" resultType="string" >
+		select max(id) from authc_menu where parent_id=#{0};
+	</select>
+	
+	<select id="findDisplayChildren" resultType="menu" >
+		SELECT
+			*
+		FROM authc_menu a where parent_id=#{0} and status=3 order by sort
+	</select>
+	
+	<select id="findById" resultType="menu" >
+		SELECT
+			*
+		FROM authc_menu a where id=#{0}
+	</select>
+	
+	<select id="findByUsername" resultType="menu" >
+select a.* from authc_menu a LEFT JOIN authc_menu b on b.id=a.parent_id JOIN authc_role_menu c on c.menu_id=a.id JOIN authc_role d on d.id=c.role_id JOIN authc_user_role e ON
+e.role_id = d.id JOIN authc_user f on f.id=e.user_id and f.login_name=#{0}
+	</select>
+	
+	
+	<update id="update">
+	    update authc_menu set 
+		    sort = #{sort},
+		    parent_id = #{parentId},
+		    name = #{name},
+		    href = #{href},
+		    status = #{status},
+		    icon = #{icon},
+		    permission = #{permission}	    
+	    where id = #{id}
+	</update>
+	
+<select id="findZtreeEntity" resultType="com.liyang.module.authc.ZtreeEntity" >
+		SELECT
+			name,parent_id pId, id  
+		FROM authc_menu a
+	</select>
+	
+</mapper>

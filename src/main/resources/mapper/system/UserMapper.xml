@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyang.webadmin.persistence.mapper.UserMapper">
+	
+	
+	<!-- 根据登录名查询用户 -->
+	<select id="findByUsername" resultType="user" >
+		SELECT
+			*
+		FROM authc_user a
+		
+		WHERE a.username = #{0}
+	</select>
+	
+	<!-- 根据登录名查询用户 -->
+	<select id="findById" resultType="user" >
+		SELECT
+			*
+		FROM authc_user a
+		
+		WHERE a.id = #{0}
+	</select>
+	
+	
+	
+	<!-- 查询所有用户 -->
+	<select id="findUsers" resultType="user" >
+		SELECT
+			*
+		FROM authc_user a
+	</select>
+	
+	
+	<!-- 查询所有用户角色 -->
+	<select id="findRoles" resultType="string" >
+		SELECT
+			role_id
+		FROM authc_user_role a where user_id=#{0}
+	</select>
+	
+	<!-- 保存用户 -->
+	<insert id="save">
+	    insert into authc_user (id, name, username, password, no, email, phone) 
+	    values(#{id}, #{name}, #{username}, #{password}, #{no}, #{email}, #{phone} )
+	</insert>
+	
+	<!-- 保存用户角色 -->
+	<insert id="saveUserRole">
+	    insert into authc_user_role (user_id, role_id) values(#{0}, #{1})
+	</insert>
+	
+	<delete id="clearUserRole">
+	    delete from authc_user_role where user_id=#{0}
+	</delete>
+	
+	<delete id="delete">
+	    delete from authc_user where id=#{0}
+	</delete>
+	
+	<update id="update">
+	    update authc_user set name=#{name},no=#{no},password=#{password},email=#{email},phone=#{phone} where id=#{id}
+	</update>
+
+	
+</mapper>

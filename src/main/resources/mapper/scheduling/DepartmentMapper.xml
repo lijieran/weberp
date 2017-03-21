@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyang.business.scheduling.mapper.DepartmentMapper">
+	
+	
+	<select id="findAll" resultType="department" >
+		SELECT
+			*
+		FROM T_DEPARTMENT a
+	</select>
+	
+	<insert id="save">
+	    insert into T_DEPARTMENT (name, alias, sort, create_by, create_date, remarks)
+	    values (#{name}, #{alias}, #{sort}, #{createBy}, now(), #{remarks})
+	</insert>
+	
+	
+	<select id="findById" resultType="department" >
+		SELECT
+			*
+		FROM T_DEPARTMENT a where a.id=#{0}
+	</select>
+	
+	<update id="update">
+	    update T_DEPARTMENT set
+	    name = #{name},
+	    alias = #{alias},
+	    sort = #{sort},
+	    remarks = #{remarks},
+	    update_by= #{updateBy},
+	    update_date = now()
+	    where id=#{id}
+	</update>
+
+</mapper>
