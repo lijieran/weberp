@@ -26,25 +26,34 @@ public class MetronicSidebarFactory implements SidebarFactory{
 		
 		
 		for(Menu entity:menus) {
-			this.formatSidebar(entity, buffer, uri);
+			this.formatSidebar(entity, buffer, uri, null);
 						
 		}
 		return buffer.toString();
 	}
 
-	private void formatSidebar(Menu entity, StringBuffer buffer, String uri) {
+	private void formatSidebar(Menu entity, StringBuffer buffer, String uri, String username) {
 		try {
 			logger.info("请求的uri="+uri);
 			uri = uri.replace("add", "index");
 			uri = uri.replace("update", "index");
 			if(entity.getStatus().equals("0")) return;
 			
+			String tmp = uri.substring(uri.lastIndexOf("/"));
+			uri = uri.replace(tmp, "/index");
+			
 			/*if(uri.contains("Update") || uri.contains("Add")) {
 				String tmp = uri.substring(uri.lastIndexOf("/"));
 				uri = uri.replace(tmp, "/index");
 			}*/
 			
-			List<Menu> children = menuMapper.findDisplayChildren(entity.getId());
+			List<Menu> children = null;
+			
+			if(username==null) {
+				children = menuMapper.findDisplayChildren(entity.getId());
+			} else {
+				children = menuMapper.findByUsernameAndParentId(entity.getId(), username);
+			}
 			
 			String titleTag = "<li>";
 			String icon = entity.getIcon();
@@ -119,6 +128,19 @@ public class MetronicSidebarFactory implements SidebarFactory{
 			if(uri.equals(entity.getHref())) return true;
 		}
 		return false;
+	}
+
+	public String generateSidebar(String uri, String username) {
+		List<Menu> menus = menuMapper.findByUsernameAndParentId(Constant.MENU_ROOT_ID, username);
+		
+		StringBuffer buffer = new StringBuffer();
+		
+		
+		for(Menu entity:menus) {
+			this.formatSidebar(entity, buffer, uri, username);
+						
+		}
+		return buffer.toString();
 	}
 
 }

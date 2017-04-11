@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.liyang.webadmin.entity.Role;
 import com.liyang.webadmin.service.AuthenticationService;
 import com.liyang.webadmin.service.SystemService;
+import com.liyang.webadmin.web.MetaUtils;
 
 @Controller
 @RequestMapping("role")
@@ -29,8 +30,10 @@ public class RoleController {
 	private AuthenticationService authenticationService;
 	
 	@RequestMapping(value = {"index"})
-	public String index() {
+	public String index(Model model) {
 		logger.info("===========");
+		String useableMeta = MetaUtils.generateColumnDefs("useable");
+		model.addAttribute("useableMeta", useableMeta);
 		return "system/roleIndex";
 	}
 	

@@ -19,7 +19,7 @@ public interface SystemService {
 	public void deleteUser(String id);
 	
 	public String findMenus();
-	public List<Menu> findAllMenus();
+	public List<Menu> findTopMenus();
 	public void saveMenu(Menu entity);
 	public void deleteMenu(String id);
 	public Menu findMenuById(String id);

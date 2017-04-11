@@ -38,7 +38,7 @@ public class MenuController {
 
 	@RequestMapping(value = {"add"})
 	public String menuAdd(Model model) {
-		List<Menu> menus = systemService.findAllMenus();
+		List<Menu> menus = systemService.findTopMenus();
 		model.addAttribute("menus", menus);
 		return "system/menuAdd";
 	}
@@ -48,7 +48,7 @@ public class MenuController {
 		String id = request.getParameter("id");
 		Menu entity = systemService.findMenuById(id);
 		model.addAttribute("entity", entity);
-		List<Menu> menus = systemService.findAllMenus();
+		List<Menu> menus = systemService.findTopMenus();
 		model.addAttribute("menus", menus);
 		return "system/menuUpdate";
 	}

@@ -109,4 +109,9 @@ public class AceSidebarFactory implements SidebarFactory{
 		return false;
 	}
 
+	public String generateSidebar(String uri, String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

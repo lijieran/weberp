@@ -72,7 +72,7 @@
 												<div class="row">
 													<div class="col-md-6">
 														<div class="form-group">
-															<label class="control-label col-md-3">进货申请单号</label>
+															<label class="control-label col-md-3">进货申请单号<span class="required">* </span></label>
 															<div class="col-md-9">
 																<input type="text" class="form-control" placeholder="NYT_013213123">
 																<span class="help-block">
@@ -81,7 +81,7 @@
 														</div>
 													</div>
 													<!--/span-->
-													<div class="col-md-6">
+													<!-- <div class="col-md-6">
 														<div class="form-group">
 															<label class="control-label col-md-3">物料</label>
 															<div class="col-md-9">
@@ -93,9 +93,44 @@
 																<a href="#">增加新物料</a> </span>
 															</div>
 														</div>
-													</div>
+													</div> -->
 													<!--/span-->
 												</div>
+												<!--/row-->
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label class="control-label col-md-3">物料</label>
+															<div class="col-md-9">
+																<select name="foo" class="select2me form-control">
+																    
+																	<option value="1">商</option>
+																	<option value="1">周</option>
+																</select>
+																<span class="help-block">
+																<a href="#">新增物料</a> </span>
+															</div>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="form-group">
+															<label class="control-label col-md-3">放置仓库</label>
+															<div class="col-md-9">
+																<select name="foo" class="select2me form-control">
+																    <c:forEach items="${warehouses }" var="entity">
+																        <option value="${entity.id }">${entity.name }</option>
+																    </c:forEach>
+																	
+																</select>
+																<span class="help-block">
+																<a href="${ctx }/warehouse/add">新增仓库信息</a> </span>
+															</div>
+														</div>
+													</div>
+													
+													<!--/span-->
+												</div>
+												<!--/row-->
 												<!--/row-->
 												<div class="row">
 													<div class="col-md-6">
@@ -107,7 +142,7 @@
 																	<option value="">Female</option>
 																</select>
 																<span class="help-block">
-																<a href="#">增加新供应商</a> </span> </span>
+																<a href="${ctx }/supplier/add">增加新供应商</a> </span> </span>
 															</div>
 														</div>
 													</div>
@@ -152,10 +187,6 @@
 															</div>
 														</div>
 													</div>
-												
-												</div>
-												<!--/row-->
-												<div class="row">
 													<div class="col-md-6">
 														<div class="form-group">
 															<label class="control-label col-md-3">备注</label>
@@ -166,10 +197,9 @@
 														</div>
 													</div>
 													<!--/span-->
-													
-													<!--/span-->
+												
 												</div>
-												<!--/row-->
+												
 											</div>
 											<div class="form-actions">
 												<div class="row">

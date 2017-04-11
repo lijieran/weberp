@@ -16,6 +16,9 @@
 <script src="${ctxStatic}/metronic/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="${ctxStatic}/metronic/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="${ctxStatic}/metronic/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="${ctxStatic}/metronic/assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="${ctxStatic}/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
+
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->

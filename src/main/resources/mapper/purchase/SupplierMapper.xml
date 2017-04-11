@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyang.business.purchase.mapper.SupplierMapper">
+	
+	
+	<select id="findByCompanyName" resultType="supplier" >
+		SELECT
+			*
+		FROM supplier a where a.company_name=#{0} and a.delete_flag=0
+	</select>
+	
+	<select id="findById" resultType="supplier" >
+		SELECT
+			*
+		FROM supplier a where a.id=#{0}
+	</select>
+	
+	<select id="findAll" resultType="supplier" >
+		SELECT
+			*
+		FROM supplier a where a.delete_flag=0
+	</select>
+	
+	<update id="delete">
+	   update supplier set delete_flag=1 where id=#{0}
+	</update>
+	
+	<update id="update">
+	   update supplier set company_name=#{companyName},legal_person=#{legalPerson},linkname=#{linkname},
+	         company_phone=#{companyPhone},mobile=#{mobile},email=#{email},qq=#{qq},remark=#{remark},
+	         main_product=#{mainProduct},company_size=#{companySize}
+	   where id=#{id}
+	</update>
+	
+	<insert id="save">
+	    insert into supplier 
+	    (company_name, address, legal_person, linkname, company_phone, mobile, email, qq, remark, main_product, company_size)
+	    values
+	    (#{companyName}, #{address}, #{legalPerson}, #{linkname}, #{companyPhone}, #{mobile}, #{email}, #{qq}, #{remark}, #{mainProduct}, #{companySize})
+	</insert>
+	
+	
+
+</mapper>

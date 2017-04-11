@@ -73,11 +73,11 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- BEGIN LOGIN FORM -->
 	<form class="login-form"  method="post">
 		<h3 class="form-title"></h3>
-		<p>${message }</p>
+		<span class="help-block has-error">${message }</span>
 		<div class="alert alert-danger display-hide">
 			<button class="close" data-close="alert"></button>
 			<span>
-			Enter any username and password. </span>
+			 请输入正确的用户名和密码!</span>
 		</div>
 		<div class="form-group">
 			<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->

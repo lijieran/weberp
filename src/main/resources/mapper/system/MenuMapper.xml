@@ -10,6 +10,12 @@
 		FROM authc_menu a
 	</select>
 	
+	<select id="findTopMenus" resultType="menu" >
+		SELECT
+			*
+		FROM authc_menu a where parent_id=''
+	</select>
+	
 	<insert id="save">
 	    insert into authc_menu 
 	    (id, sort, parent_id, name, href, status, permission, icon)
@@ -62,7 +68,12 @@
 	
 	<select id="findByUsername" resultType="menu" >
 select a.* from authc_menu a LEFT JOIN authc_menu b on b.id=a.parent_id JOIN authc_role_menu c on c.menu_id=a.id JOIN authc_role d on d.id=c.role_id JOIN authc_user_role e ON
-e.role_id = d.id JOIN authc_user f on f.id=e.user_id and f.login_name=#{0}
+e.role_id = d.id JOIN authc_user f on f.id=e.user_id and f.username=#{0} group by a.id
+	</select>
+	
+		<select id="findByUsernameAndParentId" resultType="menu" >
+select a.* from authc_menu a LEFT JOIN authc_menu b on b.id=a.parent_id JOIN authc_role_menu c on c.menu_id=a.id JOIN authc_role d on d.id=c.role_id JOIN authc_user_role e ON
+e.role_id = d.id JOIN authc_user f on f.id=e.user_id and f.username=#{1} and a.parent_id=#{0} and a.status=3 group by a.id order by a.sort
 	</select>
 	
 	
@@ -81,7 +92,7 @@ e.role_id = d.id JOIN authc_user f on f.id=e.user_id and f.login_name=#{0}
 <select id="findZtreeEntity" resultType="com.liyang.module.authc.ZtreeEntity" >
 		SELECT
 			name,parent_id pId, id  
-		FROM authc_menu a
-	</select>
+		FROM authc_menu a where a.permission!='system'
+	</select> 
 	
 </mapper>

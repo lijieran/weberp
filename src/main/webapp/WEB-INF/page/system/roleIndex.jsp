@@ -153,16 +153,12 @@
                "url": ctx+"/role/list", // ajax source
            },
            "language": {
-               "lengthMenu": "记录数: _MENU_ ",
-               "info": "当前显示从 _START_ 到 _END_ 条 ,共 _TOTAL_ 条", 
-               "paginate": {
-                   "previous": '<i class="fa fa-angle-left"></i>',           
-                   "next": '<i class="fa fa-angle-right"></i>'
-               }
+        	   "url":"${ctxStatic}/metronic/assets/global/scripts/Chinese.json"
            },"columnDefs": [{
                "render": function(data, type, row) {
-            	   if(data=='0') return '停用';
-            	   if(data=='1') return '启用';
+            	   ${useableMeta}
+            	   /* if(data=='0') return '停用';
+            	   if(data=='1') return '启用'; */
                    return data;
                },
                "targets": 2

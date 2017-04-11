@@ -320,9 +320,9 @@ public class SystemServiceImpl implements SystemService{
 		
 	}
 
-	public List<Menu> findAllMenus() {
+	public List<Menu> findTopMenus() {
 		// TODO Auto-generated method stub
-		return menuMapper.findMenus();
+		return menuMapper.findTopMenus();
 	}
 
 

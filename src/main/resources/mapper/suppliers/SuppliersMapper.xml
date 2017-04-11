@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyang.business.supplier.mapper.SuppliersMapper">
+	
+	
+	<select id="findByName" resultType="suppliers" >
+		SELECT
+			*
+		FROM suppliers a where a.name=#{0} and a.deleteflag=0
+	</select>
+	
+	<select id="findById" resultType="suppliers" >
+		SELECT
+			*
+		FROM suppliers a where a.id=#{0}
+	</select>
+	
+	<select id="findAll" resultType="suppliers" >
+		SELECT
+			*
+		FROM suppliers a where a.deleteflag=0
+	</select>
+	
+	<update id="delete">
+	   update suppliers set deleteflag=1 where id=#{0}
+	</update>
+	
+	<update id="update">
+	   update suppliers set name=#{name},address=#{address},linkname=#{linkname},
+	         telephone=#{telephone},mobile=#{mobile},email=#{email},fax=#{fax},remark=#{remark},
+	         mainproduct=#{mainproduct},companysize=#{companysize},website=#{website},zipcode=#{zipcode}
+	         ,typeid=#{typeid},termscode=#{termscode},currabrev=#{currabrev}
+	   where id=#{id}
+	</update>
+	
+	<insert id="save">
+	    insert into suppliers 
+	    (id, name, address, country, linkname, telephone, mobile, email, fax, remark,
+	     mainproduct, companysize, website, zipcode, typeid, termscode, currabrev)
+	    values
+	    (#{id}, #{name},  #{address}, #{country}, #{linkname}, #{telephone}, #{mobile}, #{email}, #{fax}, #{remark},
+	     #{mainproduct}, #{companysize}, #{website}, #{zipcode}, #{typeid}, #{termscode}, #{currabrev})
+	</insert>
+	
+	
+
+</mapper>

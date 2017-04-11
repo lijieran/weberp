@@ -6,10 +6,12 @@ DROP TABLE IF EXISTS authc_dict;
 DROP TABLE IF EXISTS authc_log;
 DROP TABLE IF EXISTS authc_role_menu;
 DROP TABLE IF EXISTS authc_menu;
+DROP TABLE IF EXISTS authc_office;
 DROP TABLE IF EXISTS authc_user_role;
 DROP TABLE IF EXISTS authc_role;
 DROP TABLE IF EXISTS authc_user;
-DROP TABLE IF EXISTS authc_office;
+DROP TABLE IF EXISTS meta;
+DROP TABLE IF EXISTS meta_type;
 
 
 
@@ -127,14 +129,13 @@ CREATE TABLE authc_office
 CREATE TABLE authc_role
 (
 	-- 编号
-	id bigint NOT NULL COMMENT '编号',
-	-- 归属机构
-	office_id bigint NOT NULL COMMENT '归属机构',
+	id bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
 	-- 角色名称
 	name varchar(100) NOT NULL COMMENT '角色名称',
-	-- 英文名称
-	enname varchar(255) COMMENT '英文名称',
-	useable varchar(64),
+	-- 是否可用。1=可用，0=不可用
+	useable varchar(1) DEFAULT '1' COMMENT '是否可用。1=可用，0=不可用',
+	-- 描述
+	description varchar(255) DEFAULT '' COMMENT '描述',
 	PRIMARY KEY (id)
 ) COMMENT = '角色表';
 
@@ -155,30 +156,28 @@ CREATE TABLE authc_user
 (
 	-- 编号
 	id bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
-	-- 归属部门
-	office_id bigint NOT NULL COMMENT '归属部门',
 	-- 登录名
 	username varchar(100) NOT NULL COMMENT '登录名',
 	-- 密码
 	password varchar(100) NOT NULL COMMENT '密码',
 	-- 工号
-	no varchar(100) NOT NULL COMMENT '工号',
+	no varchar(100) COMMENT '工号',
 	-- 姓名
 	name varchar(100) NOT NULL COMMENT '姓名',
 	-- 邮箱
-	email varchar(200) COMMENT '邮箱',
+	email varchar(200) DEFAULT '' COMMENT '邮箱',
 	-- 电话
 	phone varchar(200) COMMENT '电话',
 	-- 手机
-	mobile varchar(200) COMMENT '手机',
-	photo varchar(1000),
+	mobile varchar(200) DEFAULT '' COMMENT '手机',
+	photo varchar(1000) DEFAULT '',
 	-- 最后登陆IP
 	login_ip varchar(100) COMMENT '最后登陆IP',
 	-- 最后登陆时间
 	login_time datetime COMMENT '最后登陆时间',
-	login_flag varchar(64),
-	PRIMARY KEY (id),
-	UNIQUE (no)
+	-- 是否可登录.0=禁用，1=可以
+	useable varchar(64) DEFAULT '1' COMMENT '是否可登录.0=禁用，1=可以',
+	PRIMARY KEY (id)
 ) COMMENT = '用户表';
 
 
@@ -193,28 +192,40 @@ CREATE TABLE authc_user_role
 ) COMMENT = '用户-角色';
 
 
+CREATE TABLE meta
+(
+	-- 编号
+	id bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+	-- 文本
+	label varchar(255) COMMENT '文本',
+	-- 值
+	value varchar(255) COMMENT '值',
+	-- 是否启用:1=启用;0=停用
+	useable varchar(64) DEFAULT '1' COMMENT '是否启用:1=启用;0=停用',
+	-- 代码
+	code varchar(255) NOT NULL COMMENT '代码',
+	PRIMARY KEY (id),
+	UNIQUE (code)
+);
+
+
+CREATE TABLE meta_type
+(
+	-- 代码
+	code varchar(255) NOT NULL COMMENT '代码',
+	-- 名称
+	name varchar(255) COMMENT '名称',
+	PRIMARY KEY (code),
+	UNIQUE (code)
+);
+
+
 
 /* Create Foreign Keys */
 
 ALTER TABLE authc_role_menu
 	ADD FOREIGN KEY (menu_id)
 	REFERENCES authc_menu (id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE authc_role
-	ADD FOREIGN KEY (office_id)
-	REFERENCES authc_office (id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE authc_user
-	ADD FOREIGN KEY (office_id)
-	REFERENCES authc_office (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
@@ -239,6 +250,14 @@ ALTER TABLE authc_user_role
 ALTER TABLE authc_user_role
 	ADD FOREIGN KEY (user_id)
 	REFERENCES authc_user (id)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT
+;
+
+
+ALTER TABLE meta
+	ADD FOREIGN KEY (code)
+	REFERENCES meta_type (code)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;

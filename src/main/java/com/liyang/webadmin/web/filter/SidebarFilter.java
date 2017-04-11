@@ -13,7 +13,9 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.liyang.module.config.ConfigProperties;
 import com.liyang.module.spring.SpringContextHolder;
+import com.liyang.webadmin.entity.Constant;
 import com.liyang.webadmin.web.sidebar.SidebarFactory;
 
 public class SidebarFilter extends GenericFilterBean{
@@ -33,23 +35,33 @@ public class SidebarFilter extends GenericFilterBean{
 		
 		//logger.info(root);
 		
-		String sidebar = sidebarFactory.generateSidebar(uri);
+		
+		
+		
+		Subject subject = SecurityUtils.getSubject();
+		Object principal = (Object) subject.getPrincipal();
+		String username = (String)principal;
+
+		// 如果已经登录，则跳转到管理首页
+		if (principal != null) {
+			System.out.println(principal);
+			request.setAttribute("username", username);
+			
+		}
+		String sidebar = "";
+		if(username!=null && username.equals(ConfigProperties.get(Constant.SYSTEM_USER))) {
+			 sidebar = sidebarFactory.generateSidebar(uri);
+		} else {
+			sidebar = sidebarFactory.generateSidebar(uri, username);
+		}
+		
+		
+		
 		
 		
 		sidebar = sidebar.replace("##ROOT##", root);
 		//logger.info(sidebar);
 		request.setAttribute("sidebar", sidebar);
-		
-		
-		Subject subject = SecurityUtils.getSubject();
-		Object principal = (Object) subject.getPrincipal();
-
-		// 如果已经登录，则跳转到管理首页
-		if (principal != null) {
-			System.out.println(principal);
-			request.setAttribute("username", principal);
-			
-		}
 		
 		chain.doFilter(request, response);
 		

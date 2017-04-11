@@ -16,11 +16,12 @@
 <link href="${ctxStatic}/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="${ctxStatic}/metronic/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 <link href="${ctxStatic}/metronic/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<link href="${ctxStatic}/metronic/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- BEGIN PAGE LEVEL STYLES -->
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/metronic/assets/global/plugins/select2/select2.css"/>
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/metronic/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
-	<!-- END PAGE LEVEL STYLES -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<link rel="stylesheet" type="text/css" href="${ctxStatic}/metronic/assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="${ctxStatic}/metronic/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<!-- END PAGE LEVEL STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="${ctxStatic}/metronic/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
 <link href="${ctxStatic}/metronic/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>

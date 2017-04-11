@@ -9,6 +9,8 @@ public interface MenuMapper {
 	
 	List<Menu> findMenus();
 	
+	List<Menu> findTopMenus();
+	
 	void save(Menu entity);
 	
 	void delete(String id);
@@ -30,5 +32,7 @@ public interface MenuMapper {
 	String findMaxId(String id);
 	
 	List<Menu> findByUsername(String username);
+	
+	List<Menu> findByUsernameAndParentId(String pid, String username);
 
 }

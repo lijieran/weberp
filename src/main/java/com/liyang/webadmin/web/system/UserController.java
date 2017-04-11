@@ -109,8 +109,7 @@ public class UserController {
 	
 	/**
 	 * 验证登录名是否有效
-	 * @param oldLoginName
-	 * @param loginName
+	 * @param username
 	 * @return
 	 */
 	@ResponseBody
